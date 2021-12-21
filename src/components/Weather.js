@@ -88,81 +88,8 @@ function Weather() {
     setReset(reset + 1);
   }
 
-  // useEffect(() => {
-  //   const axiosRequests = [];
 
-  //   for (const savedCity of savedCities) {
-  //     axiosRequests.push(
-  //       axios(`http://localhost:5000/api`, {
-  //         method: 'get',
-  //         params: {
-  //           q: savedCity,
-  //           units: 'imperial',
-  //         },
-  //       })
-  //     );
-  //   }
-
-  //   if (axiosRequests.length > 0) {
-  //     console.log(axiosRequests);
-
-  //     axios
-  //       .all(axiosRequests)
-  //       .then(
-  //         axios.spread((...responses) => {
-  //           const responseArray = [];
-  //           for(let i = 0; i < axiosRequests.length; i++ ) {
-  //             responseArray.push(responses[i].data);
-  //           }
-  //           // const responseOne = responses[0];
-  //           // const responseTwo = responses[1];
-  //           // const responseThree = responses[2];
-
-  //           // console.log(responseOne);
-  //           // console.log(responseTwo);
-  //           // console.log(responseThree);
-  //           setSavedCitiesData(responseArray);
-  //           // use/access the results
-  //         })
-  //       )
-  //       .catch((errors) => {
-  //         // react on errors.
-  //       });
-  //   }
-  // }, [savedCities]);
-
-  function loadCity(evt, city) {
-    evt.preventDefault();
-    axios(`http://localhost:5000/api`, {
-      method: 'get',
-      withCredentials: false,
-      params: {
-        q: city,
-        units: 'imperial',
-      },
-    })
-      .then((res) => {
-        console.log(res.data);
-        copy.push(res.data);
-        setSavedCitiesData([...copy]);
-      })
-      .catch((err) => {
-        setValidCity(true);
-        const resError = err?.response?.data?.error;
-        if (resError) {
-          if (typeof resError === 'string') {
-            setError(resError);
-          } else if (resError.details) {
-            setError(_.map(resError.details, (x, index) => <div key={index}>{x.message}</div>));
-          } else {
-            setError(JSON.stringify(resError));
-          }
-        } else {
-          setError(err.message);
-        }
-      });
-  }
-
+  
   function onInputChange(evt, setValue) {
     const newValue = evt.currentTarget.value;
     setValue(newValue);
@@ -174,7 +101,7 @@ function Weather() {
       evt.preventDefault();
     }
 
-    axios(`http://localhost:5000/api`, {
+    axios(`${process.env.REACT_APP_API_URL}/api`, {
       method: 'get',
       withCredentials: false,
       params: {
@@ -207,7 +134,7 @@ function Weather() {
   }
 
   function fetchHomeData(city) {
-    axios(`http://localhost:5000/api`, {
+    axios(`${process.env.REACT_APP_API_URL}/api`, {
       method: 'get',
       withCredentials: false,
       params: {
