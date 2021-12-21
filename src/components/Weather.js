@@ -101,7 +101,7 @@ function Weather() {
       evt.preventDefault();
     }
 
-    axios(`${process.env.REACT_APP_API_URL}/api`, {
+    axios(`${process.env.REACT_APP_API_URL}api`, {
       method: 'get',
       withCredentials: false,
       params: {
@@ -134,7 +134,7 @@ function Weather() {
   }
 
   function fetchHomeData(city) {
-    axios(`${process.env.REACT_APP_API_URL}/api`, {
+    axios(`${process.env.REACT_APP_API_URL}api`, {
       method: 'get',
       withCredentials: false,
       params: {
