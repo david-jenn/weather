@@ -7,11 +7,7 @@ function CitySummary({ city, index, fetchData, deleteCity }) {
       <div className="card border border-dark bg-light" onClick={(evt) => fetchData(evt, city)}>
         
         <div className="card-body d-flex justify-content-between">
-          <div>
-            <button className="btn btn-primary">
-              <BsArrow90DegUp />
-            </button>
-          </div>
+          
           <div className="fs-4 mb-1text-center">{city}</div>
           <div>
             <button className="btn btn-danger" onClick={(evt) => deleteCity(evt, city, index)}>
