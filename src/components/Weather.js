@@ -31,6 +31,9 @@ function Weather() {
   const [dailyForecast, setDailyForecast] = useState(null);
   const [currentIcon, setCurrentIcon] = useState('/images/01n@2x_clearNight.png');
 
+  const [hourlyButtonDisabled, setHourlyButtonDisabled] = useState(true);
+  const [dailyButtonDisabled, setDailyButtonDisabled] = useState(false);
+
   useEffect(() => {
     console.log('hello');
 
@@ -299,21 +302,26 @@ function Weather() {
   }
 
   function switchForecast() {
+
     if(!seeDaily) {
       setSeeDaily(true);
-      setForecastToggleText("Hourly Forecast")
+      setDailyButtonDisabled(true);
+      setHourlyButtonDisabled(false);
     } else {
       setSeeDaily(false);
-      setForecastToggleText("Daily Forecast")
-    }
+      setDailyButtonDisabled(false);
+      setHourlyButtonDisabled(true);
+  }
   }
 
+ 
+
   return (
-    <div className="container bg-light mb-3">
+    <div className="container-fluid mb-3">
       <div className="">
         <form className="">
           <div>
-            <h1>Weather App</h1>
+            
             {homeData && (
               <div className="d-flex justify-content-end align-items-center mb-1">
                 <div className="me-2">
@@ -350,7 +358,7 @@ function Weather() {
           {title === 'City Not Found!' && <div className="fst-italic text-danger mb-5">{title}</div>}
           {title && title !== 'City Not Found!' && (
             <div>
-              <div className="bg-white p-2 mb-3 main-display">
+              <div className="p-2 mb-3 main-display">
                 <div className=" fs-2">{title}</div>
                 <div className=" d-flex justify-content-evenly">
                   <div className="me-3">
@@ -381,16 +389,16 @@ function Weather() {
                   </button>
                 </div>
               </div>
-              <div className="d-flex justify-content-center">
-              <h3 className="me-3">Forecast</h3>
-              <button className="btn btn-secondary" onClick={(evt) => switchForecast()}>{forecastToggleText}</button>
+              <div className="d-flex justify-content-evenly">
+              <button className="btn btn-secondary" disabled={hourlyButtonDisabled} onClick={(evt) => switchForecast()}>Hourly Forecast</button>
+              <button className="btn btn-secondary" disabled={dailyButtonDisabled} onClick={(evt) => switchForecast()}>Daily Forecast</button>
               </div>
               <div className="p-3">
                 {forecast != null && !seeDaily && (
                   <div className="row">
                     {_.map(hourlyForecast, (hour) => (
                       <div className="col-sm-6 col-md-4 p-3">
-                        <div className=" p-3 d-flex justify-content-center bg-white">
+                        <div className=" p-3 d-flex justify-content-center">
                           <div className="">
                             <Hourly hour={hour} getWeatherIcon={getWeatherIcon} />
                           </div>
@@ -404,7 +412,7 @@ function Weather() {
                   <div className="row">
                      {_.map(dailyForecast, (day) => (
                       <div className="col-sm-6 col-md-4 p-3">
-                        <div className=" p-3 d-flex justify-content-center bg-white">
+                        <div className=" p-3 d-flex justify-content-center">
                           <div className="">
                              <Daily day={day} getWeatherIcon={getWeatherIcon} />
                           </div>
@@ -421,13 +429,11 @@ function Weather() {
               <div className="d-flex justify-content-between mb-5">
 
                 <button className="btn btn-secondary" onClick={(evt) => seeMoreHours(evt)}>
-                  See next hours
-                  <AiOutlineHome className="fs-3 ms-2" />
-                </button>
+                  Next hours
+                 </button>
 
                 <button className="btn btn-secondary" onClick={(evt) => seeLessHours(evt)}>
-                  See previous hours
-                  <AiOutlineHome className="fs-3 ms-2" />
+                  Less hours
                 </button>
 
                 </div>
