@@ -208,7 +208,8 @@ function Weather() {
           // if (hourlySet == 2) {
           //   currentForcast.hourly = currentForcast.hourly.splice(6, 6);
           // }
-          setHourlyForecast(currentForecast.splice(0, 6));
+          const hours = currentForecast.splice(0, 6);
+          setHourlyForecast(hours);
           setDailyForecast(res.data.daily)
           setForecast(res.data);
           
