@@ -201,13 +201,7 @@ function Weather() {
         console.log(res.data);
         
         const currentForecast = [...res.data?.hourly];
-        //if (true) {
-          // if (hourlySet == 1) {
-          //   currentForcast.hourly = currentForcast.hourly.splice(0, 6);
-          // }
-          // if (hourlySet == 2) {
-          //   currentForcast.hourly = currentForcast.hourly.splice(6, 6);
-          // }
+        
           const hours = currentForecast.splice(0, 6);
           setHourlyForecast(hours);
           setDailyForecast(res.data.daily)
