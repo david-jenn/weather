@@ -147,7 +147,7 @@ function Weather() {
 
   function fetchHomeData(city) {
     console.log(process.env.REACT_APP_API_URL);
-    axios(`${process.env.REACT_APP_API_URL}/api`, {
+    axios(`${process.env.REACT_APP_API_URL}/api/weather`, {
       method: 'get',
       withCredentials: false,
       params: {
