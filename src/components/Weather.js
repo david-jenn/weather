@@ -210,9 +210,10 @@ function Weather() {
           // }
           setHourlyForecast(currentForecast.splice(0, 6));
           setDailyForecast(res.data.daily)
+          setForecast(res.data);
           
         //}
-        setForecast(res.data);
+        
       })
       .catch((err) => {
         console.log(err.data);
