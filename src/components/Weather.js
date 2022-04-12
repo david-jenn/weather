@@ -23,8 +23,8 @@ function Weather() {
   const [homeData, setHomeData] = useState(null);
 
   const [seeDaily, setSeeDaily] = useState(false);
-  const [forecastToggleText, setForecastToggleText] = useState("See Daily Forecast");
-  
+  const [forecastToggleText, setForecastToggleText] = useState('See Daily Forecast');
+
   const [forecast, setForecast] = useState(null);
   const [hourlyForecast, setHourlyForecast] = useState(null);
   const [hourlySet, setHourlySet] = useState(1);
@@ -104,7 +104,6 @@ function Weather() {
   }
 
   function fetchData(evt, cityQuery) {
-
     if (evt) {
       evt.preventDefault();
     }
@@ -202,16 +201,15 @@ function Weather() {
     })
       .then((res) => {
         console.log(res.data);
-        
+
         const currentForecast = [...res.data?.hourly];
-        
-          const hours = currentForecast.splice(0, 6);
-          setHourlyForecast(hours);
-          setDailyForecast(res.data.daily)
-          setForecast(res.data);
-          
+
+        const hours = currentForecast.splice(0, 6);
+        setHourlyForecast(hours);
+        setDailyForecast(res.data.daily);
+        setForecast(res.data);
+
         //}
-        
       })
       .catch((err) => {
         console.log(err.data);
@@ -251,59 +249,51 @@ function Weather() {
   }
 
   function seeMoreHours() {
-    console.log(hourlySet)
-    const currentHours = [...forecast.hourly] 
-    if(hourlySet === 1) {
+    console.log(hourlySet);
+    const currentHours = [...forecast.hourly];
+    if (hourlySet === 1) {
       setHourlyForecast(currentHours.splice(6, 6));
-    }
-    else if (hourlySet === 2) {
+    } else if (hourlySet === 2) {
       setHourlyForecast(currentHours.splice(12, 6));
-    } 
-    else if (hourlySet === 3) {
+    } else if (hourlySet === 3) {
       setHourlyForecast(currentHours.splice(18, 6));
-    }
-    else if (hourlySet === 4) {
+    } else if (hourlySet === 4) {
       setHourlyForecast(currentHours.splice(24, 6));
-    } 
-    else {
+    } else {
       return;
     }
 
     setHourlySet(hourlySet + 1);
-    
   }
 
   function seeLessHours() {
-    console.log(hourlySet)
+    console.log(hourlySet);
     const currentHours = [...forecast.hourly];
 
-    if(hourlySet === 1) {
+    if (hourlySet === 1) {
       return;
-    } 
-      
-    if (hourlySet === 2) {
-        setHourlyForecast(currentHours.splice(0, 6));
     }
 
-    if(hourlySet === 3) {
+    if (hourlySet === 2) {
+      setHourlyForecast(currentHours.splice(0, 6));
+    }
+
+    if (hourlySet === 3) {
       setHourlyForecast(currentHours.splice(6, 6));
     }
 
-    if(hourlySet === 4) {
+    if (hourlySet === 4) {
       setHourlyForecast(currentHours.splice(12, 6));
     }
-    if(hourlySet === 5) {
+    if (hourlySet === 5) {
       setHourlyForecast(currentHours.splice(18, 6));
     }
-    
 
     setHourlySet(hourlySet - 1);
-   
   }
 
   function switchForecast() {
-
-    if(!seeDaily) {
+    if (!seeDaily) {
       setSeeDaily(true);
       setDailyButtonDisabled(true);
       setHourlyButtonDisabled(false);
@@ -311,151 +301,143 @@ function Weather() {
       setSeeDaily(false);
       setDailyButtonDisabled(false);
       setHourlyButtonDisabled(true);
+    }
   }
-  }
-
- 
 
   return (
     <div className="container-fluid mb-3">
-      <div className="">
-        <form className="">
-          <div>
-            
-            {homeData && (
-              <div className="d-flex justify-content-end align-items-center mb-1">
-                <div className="me-2">
-                  <AiOutlineHome className="fs-5" />
-                </div>
-
-                <div>
-                  {homeData?.name} {homeData?.main?.temp}&deg;
-                </div>
-              </div>
-            )}
-            {!homeData && <div className="spacer"></div>}
-          </div>
-          <div className="mb-3">
-            <label htmlFor="cityInput" className="form-label">
-              Enter A City
-            </label>
-            <input id="cityInput" className="form-control" onChange={(evt) => onInputChange(evt, setCity)}></input>
-          </div>
-          <div className="mb-3">
-            <button className="btn btn-primary me-3" onClick={(evt) => fetchData(evt, city)}>
-              Get Weather!
-              <span className="ms-2">
-                <FaSearchLocation className="fs-2" />
-              </span>
-            </button>
-            <button className="btn btn-info" onClick={(evt) => fetchData(evt, home, true)}>
-              <AiOutlineHome className="fs-2" />
-            </button>
-          </div>
-        </form>
-        <div className="">
-          {!title && <div className="fst-italic mb-5">No city selected!</div>}
-          {title === 'City Not Found!' && <div className="fst-italic text-danger mb-5">{title}</div>}
-          {title && title !== 'City Not Found!' && (
-            <div>
-              <div className="p-2 mb-3 main-display">
-                <div className=" fs-2">{title}</div>
-                <div className=" d-flex justify-content-evenly">
-                  <div className="me-3">
-                    <div className="fs-3">{cityData?.main?.temp}&deg;</div>
-                    <div>
-                      <img src={currentIcon} width="50" height="50"></img>
-                    </div>
-                    {cityData?.weather && <div className="fst-italic">{cityData?.weather[0]?.description}</div>}
-                  </div>
-                  <div>
-                    <div className="mb-2">Feels Like: {cityData?.main?.feels_like}&deg;</div>
-                    <div className="mb-2">High of {cityData?.main?.temp_max}&deg;</div>
-                    <div className="mb-2">Low of {cityData?.main?.temp_min}&deg;</div>
-                  </div>
-                </div>
+      <form className="">
+        <div>
+          {homeData && (
+            <div className="d-flex justify-content-end align-items-center mb-1">
+              <div className="me-2">
+                <AiOutlineHome className="fs-5" />
               </div>
 
-              <div className=" d-flex justify-content-between mb-3">
-                <div>
-                  <button className="btn-primary btn" onClick={(evt) => addCity(evt, title)}>
-                    <AiOutlineStar className=" fs-3" />
-                  </button>
-                </div>
-                <div>
-                  <button className="btn btn-info" onClick={(evt) => saveHome(evt, cityData)}>
-                    Set As Home
-                    <AiOutlineHome className="fs-3 ms-2" />
-                  </button>
-                </div>
+              <div>
+                {homeData?.name} {homeData?.main?.temp}&deg;
               </div>
-              <div className="d-flex justify-content-evenly">
-              <button className="btn btn-secondary" disabled={hourlyButtonDisabled} onClick={(evt) => switchForecast()}>Hourly Forecast</button>
-              <button className="btn btn-secondary" disabled={dailyButtonDisabled} onClick={(evt) => switchForecast()}>Daily Forecast</button>
-              </div>
-              <div className="p-3">
-                {forecast != null && !seeDaily && (
-                  <div className="row">
-                    {_.map(hourlyForecast, (hour) => (
-                      <div className="col-sm-6 col-md-4 p-3">
-                        <div className=" p-3 d-flex justify-content-center">
-                          <div className="">
-                            <Hourly hour={hour} getWeatherIcon={getWeatherIcon} />
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                )}
-
-                {forecast != null && seeDaily && (
-                  <div className="row">
-                     {_.map(dailyForecast, (day) => (
-                      <div className="col-sm-6 col-md-4 p-3">
-                        <div className=" p-3 d-flex justify-content-center">
-                          <div className="">
-                             <Daily day={day} getWeatherIcon={getWeatherIcon} />
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                  
-                )}
-                
-                
-              </div>
-
-              <div className="d-flex justify-content-between mb-5">
-
-                <button className="btn btn-secondary" onClick={(evt) => seeMoreHours(evt)}>
-                  Next hours
-                 </button>
-
-                <button className="btn btn-secondary" onClick={(evt) => seeLessHours(evt)}>
-                  Less hours
-                </button>
-
-                </div>
-
-              
             </div>
           )}
-          <div className="">
-            {(!savedCities || savedCities.length === 0) && (
-              <div className="fst-italic fs-4">Click favorite button to save cities</div>
-            )}
-            {savedCities && savedCities.length > 0 && (
-              <div className="row">
-                <div className="fs-4 p-3 mb-3">
-                  <div className="border-bottom border-dark">Your Cities</div>
+          {!homeData && <div className="spacer"></div>}
+        </div>
+        <div className="mb-3">
+          <label htmlFor="cityInput" className="form-label">
+            Enter A City
+          </label>
+          <input id="cityInput" className="form-control" onChange={(evt) => onInputChange(evt, setCity)}></input>
+        </div>
+        <div className="mb-3">
+          <button className="btn btn-primary me-3" onClick={(evt) => fetchData(evt, city)}>
+            Get Weather!
+            <span className="ms-2">
+              <FaSearchLocation className="fs-2" />
+            </span>
+          </button>
+          <button className="btn btn-info" onClick={(evt) => fetchData(evt, home, true)}>
+            <AiOutlineHome className="fs-2" />
+          </button>
+        </div>
+      </form>
+      <div className="">
+        {!title && <div className="fst-italic mb-5">No city selected!</div>}
+        {title === 'City Not Found!' && <div className="fst-italic text-danger mb-5">{title}</div>}
+        {title && title !== 'City Not Found!' && (
+          <div>
+            <div className="p-2 mb-3 main-display">
+              <div className=" fs-2">{title}</div>
+              <div className=" d-flex justify-content-evenly">
+                <div className="me-3">
+                  <div className="fs-3">{cityData?.main?.temp}&deg;</div>
+                  <div>
+                    <img src={currentIcon} width="50" height="50"></img>
+                  </div>
+                  {cityData?.weather && <div className="fst-italic">{cityData?.weather[0]?.description}</div>}
                 </div>
-                {_.map(savedCities, (city, index) => (
-                  <CitySummary city={city} index={index} key={index} fetchData={fetchData} deleteCity={deleteCity} />
-                ))}
+                <div>
+                  <div className="mb-2">Feels Like: {cityData?.main?.feels_like}&deg;</div>
+                  <div className="mb-2">High of {cityData?.main?.temp_max}&deg;</div>
+                  <div className="mb-2">Low of {cityData?.main?.temp_min}&deg;</div>
+                </div>
               </div>
-            )}
+            </div>
+
+            <div className=" d-flex justify-content-between mb-3">
+              <div>
+                <button className="btn-primary btn" onClick={(evt) => addCity(evt, title)}>
+                  <AiOutlineStar className=" fs-3" />
+                </button>
+              </div>
+              <div>
+                <button className="btn btn-info" onClick={(evt) => saveHome(evt, cityData)}>
+                  Set As Home
+                  <AiOutlineHome className="fs-3 ms-2" />
+                </button>
+              </div>
+            </div>
+            <div className="d-flex justify-content-evenly">
+              <button className="btn btn-secondary" disabled={hourlyButtonDisabled} onClick={(evt) => switchForecast()}>
+                Hourly Forecast
+              </button>
+              <button className="btn btn-secondary" disabled={dailyButtonDisabled} onClick={(evt) => switchForecast()}>
+                Daily Forecast
+              </button>
+            </div>
+            <div className="p-3">
+              {forecast != null && !seeDaily && (
+                <div className="row">
+                  {_.map(hourlyForecast, (hour) => (
+                    <div className="col-sm-6 col-md-4 p-3">
+                      <div className=" p-3 d-flex justify-content-center">
+                        <div className="">
+                          <Hourly hour={hour} getWeatherIcon={getWeatherIcon} />
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {forecast != null && seeDaily && (
+                <div className="row">
+                  {_.map(dailyForecast, (day) => (
+                    <div className="col-sm-6 col-md-4 p-3">
+                      <div className=" p-3 d-flex justify-content-center">
+                        <div className="">
+                          <Daily day={day} getWeatherIcon={getWeatherIcon} />
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            <div className="d-flex justify-content-between mb-5">
+              <button className="btn btn-secondary" onClick={(evt) => seeMoreHours(evt)}>
+                Next hours
+              </button>
+
+              <button className="btn btn-secondary" onClick={(evt) => seeLessHours(evt)}>
+                Less hours
+              </button>
+            </div>
           </div>
+        )}
+        <div className="">
+          {(!savedCities || savedCities.length === 0) && (
+            <div className="fst-italic fs-4">Click favorite button to save cities</div>
+          )}
+          {savedCities && savedCities.length > 0 && (
+            <div className="row">
+              <div className="fs-4 p-3 mb-3">
+                <div className="border-bottom border-dark">Your Cities</div>
+              </div>
+              {_.map(savedCities, (city, index) => (
+                <CitySummary city={city} index={index} key={index} fetchData={fetchData} deleteCity={deleteCity} />
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </div>
