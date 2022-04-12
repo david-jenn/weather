@@ -106,7 +106,7 @@ function Weather() {
       evt.preventDefault();
     }
 
-    axios(`${process.env.REACT_APP_API_URL}/api`, {
+    axios(`${process.env.REACT_APP_API_URL}/api/weather`, {
       method: 'get',
       withCredentials: false,
       params: {
