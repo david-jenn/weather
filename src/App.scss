@@ -1,8 +1,39 @@
+$palette1: #f7b34e;
+$palette2: #be86f3;
+$palette3: #c42f2a;
+$palette4: #56acfc;
+$palette5: #07d85b;
+
+
+$primary: $palette4;
+$danger: $palette3;
+$warning: $palette1;
+$success: $palette5;
+
+$theme-colors: (
+  "primary": #0074d9,
+  "danger": #ff4136,
+  "secondary": #0ec493,
+  "success": #c42f2a,
+  
+);
+
+
+
+
+
 @import "~bootswatch/dist/quartz/variables";
 @import "~bootstrap/scss/bootstrap";
 @import "~bootswatch/dist/quartz/bootswatch";
 
 
 .main-display {
- 
+
+  background-image: linear-gradient(-20deg, #087c69 0%, #8ddad5 100%);
+  
 }
+
+.shadow {
+  box-shadow: 5px 10px #888888;
+}
+

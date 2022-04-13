@@ -7,7 +7,7 @@ import Footer from './components/Footer';
 
 function App() {
   return (
-    <div className="App d-flex flex-column">
+    <div className="App d-flex flex-column main-display">
       <Navbar />
       <main className="flex-grow-1 min-vh-100">
       <Weather />

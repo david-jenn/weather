@@ -23,7 +23,7 @@ function Weather() {
   const [homeData, setHomeData] = useState(null);
 
   const [seeDaily, setSeeDaily] = useState(false);
-  const [forecastToggleText, setForecastToggleText] = useState('See Daily Forecast');
+
 
   const [forecast, setForecast] = useState(null);
   const [hourlyForecast, setHourlyForecast] = useState(null);
@@ -234,6 +234,9 @@ function Weather() {
     if (code >= 520 && code <= 531) {
       return '/images/10d@2x_rain.png';
     }
+    if (code >= 600 && code <= 622) {
+      return '/images/13d@2x_freezingRain.png'
+    }
     if (code >= 701 && code <= 781) {
       return '/images/50d@2x_mist.png';
     }
@@ -305,7 +308,7 @@ function Weather() {
   }
 
   return (
-    <div className="container-fluid mb-3">
+    <div className="container mb-3">
       <form className="">
         <div>
           {homeData && (
@@ -334,7 +337,7 @@ function Weather() {
               <FaSearchLocation className="fs-2" />
             </span>
           </button>
-          <button className="btn btn-info" onClick={(evt) => fetchData(evt, home, true)}>
+          <button className="btn btn-secondary" onClick={(evt) => fetchData(evt, home, true)}>
             <AiOutlineHome className="fs-2" />
           </button>
         </div>
@@ -344,7 +347,7 @@ function Weather() {
         {title === 'City Not Found!' && <div className="fst-italic text-danger mb-5">{title}</div>}
         {title && title !== 'City Not Found!' && (
           <div>
-            <div className="p-2 mb-3 main-display">
+            <div className="p-2 mb-3 border border-light shadow">
               <div className=" fs-2">{title}</div>
               <div className=" d-flex justify-content-evenly">
                 <div className="me-3">
@@ -364,12 +367,12 @@ function Weather() {
 
             <div className=" d-flex justify-content-between mb-3">
               <div>
-                <button className="btn-primary btn" onClick={(evt) => addCity(evt, title)}>
-                  <AiOutlineStar className=" fs-3" />
+                <button className="btn-secondary btn" onClick={(evt) => addCity(evt, title)}>
+                  Favorite <AiOutlineStar className=" fs-3" />
                 </button>
               </div>
               <div>
-                <button className="btn btn-info" onClick={(evt) => saveHome(evt, cityData)}>
+                <button className="btn btn-secondary" onClick={(evt) => saveHome(evt, cityData)}>
                   Set As Home
                   <AiOutlineHome className="fs-3 ms-2" />
                 </button>
@@ -388,7 +391,7 @@ function Weather() {
                 <div className="row">
                   {_.map(hourlyForecast, (hour) => (
                     <div className="col-sm-6 col-md-4 p-3">
-                      <div className=" p-3 d-flex justify-content-center">
+                      <div className=" p-3 d-flex justify-content-center border border-light shadow">
                         <div className="">
                           <Hourly hour={hour} getWeatherIcon={getWeatherIcon} />
                         </div>
@@ -402,7 +405,7 @@ function Weather() {
                 <div className="row">
                   {_.map(dailyForecast, (day) => (
                     <div className="col-sm-6 col-md-4 p-3">
-                      <div className=" p-3 d-flex justify-content-center">
+                      <div className=" p-3 d-flex justify-content-center border border-light shadow">
                         <div className="">
                           <Daily day={day} getWeatherIcon={getWeatherIcon} />
                         </div>
@@ -419,7 +422,7 @@ function Weather() {
               </button>
 
               <button className="btn btn-secondary" onClick={(evt) => seeLessHours(evt)}>
-                Less hours
+                Prev hours
               </button>
             </div>
           </div>

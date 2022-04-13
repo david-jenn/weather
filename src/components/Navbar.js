@@ -1,7 +1,7 @@
 function Navbar() {
   return (
-    <nav className="navbar navbar-expand-lg  mb-3">
-      <div className="container-fluid">
+    <nav className="navbar navbar-expand-lg  mb-3 container bg-light">
+      <div className="">
         <h1>
         <a className="navbar-brand" href="/">
           DAJ WEATHER APP
